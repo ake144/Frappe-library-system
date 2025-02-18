@@ -1,0 +1,32 @@
+{% extends "templates/web.html" %}
+
+{% block page_content %}
+<h2>Book Details</h2>
+<div id="book-info"></div>
+
+<script>
+frappe.ready(function() {
+    let params = new URLSearchParams(window.location.search);
+    let book_id = params.get("book_id");
+
+    if (book_id) {
+        frappe.call({
+            method: "library_management.api.books.get_book",
+            args: { book_id: book_id },
+            callback: function(r) {
+                if (r.message) {
+                    let book = r.message;
+                    document.getElementById("book-info").innerHTML = `
+                        <p><strong>Title:</strong> ${book.title}</p>
+                        <p><strong>Author:</strong> ${book.author}</p>
+                        <p><strong>ISBN:</strong> ${book.isbn}</p>
+                        <p><strong>Status:</strong> ${book.status}</p>
+                        <a href="/loan-book?book_id=${book.name}" class="btn btn-success">Loan this Book</a>
+                    `;
+                }
+            }
+        });
+    }
+});
+</script>
+{% endblock %}

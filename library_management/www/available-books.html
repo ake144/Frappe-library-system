@@ -1,0 +1,42 @@
+{% extends "templates/web.html" %}
+
+{% block page_content %}
+<h2>Available Books</h2>
+<table class="table">
+    <thead>
+        <tr>
+            <th>Title</th>
+            <th>Author</th>
+            <th>ISBN</th>
+            <th>Action</th>
+        </tr>
+    </thead>
+    <tbody id="book-list"></tbody>
+</table>
+
+<script>
+frappe.ready(function() {
+    frappe.call({
+        method: "library_management.api.books.get_available_books",
+        callback: function(r) {
+            if (r.message) {
+                let books = r.message;
+                
+                print(books);
+
+                let tableBody = document.getElementById("book-list");
+                books.forEach(book => {
+                    let row = `<tr>
+                        <td>${book.title}</td>
+                        <td>${book.author}</td>
+                        <td>${book.isbn}</td>
+                        <td><a href="/book-details?book_id=${book.name}" class="btn btn-primary">View Details</a></td>
+                    </tr>`;
+                    tableBody.innerHTML += row;
+                });
+            }
+        }
+    });
+});
+</script>
+{% endblock %}

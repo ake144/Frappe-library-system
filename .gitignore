@@ -4,6 +4,7 @@ __pycache__/
 *$py.class
 *.pyc
 *.py~
+*.pyo
 
 # Distribution / packaging
 .Python
@@ -53,3 +54,16 @@ jspm_packages/
 
 # Aider AI Chat
 .aider*
+
+# Ignore log files
+logs/
+*.log
+
+# Ignore Frappe Framework & Bench files
+sites/
+node_modules/
+frappe-bench/
+config/
+venv/
+.env
+*.sqlite3

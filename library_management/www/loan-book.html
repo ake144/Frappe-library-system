@@ -1,0 +1,37 @@
+{% extends "templates/web.html" %}
+
+{% block page_content %}
+<h2>Loan Book</h2>
+<form id="loan-form">
+    <input type="hidden" id="book_id">
+    <label for="due_date">Due Date:</label>
+    <input type="date" id="due_date" required>
+    <button type="submit" class="btn btn-success">Confirm Loan</button>
+</form>
+
+<script>
+frappe.ready(function() {
+    let params = new URLSearchParams(window.location.search);
+    let book_id = params.get("book_id");
+    document.getElementById("book_id").value = book_id;
+
+    document.getElementById("loan-form").onsubmit = function(e) {
+        e.preventDefault();
+        frappe.call({
+            method: "library_management.api.book_loan.borrow_book",
+            args: {
+                book_id: book_id,
+                member_id: frappe.session.user,
+                due_date: document.getElementById("due_date").value
+            },
+            callback: function(r) {
+                if (!r.exc) {
+                    frappe.msgprint("Book loaned successfully!");
+                    window.location.href = "/available-books";
+                }
+            }
+        });
+    };
+});
+</script>
+{% endblock %}

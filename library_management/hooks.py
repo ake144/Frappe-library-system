@@ -5,6 +5,45 @@ app_description = "Library management app"
 app_email = "tamiratake@gmail.com"
 app_license = "mit"
 
+
+
+
+
+api_methods = [
+    {"method": "library_management.api.book.create_book"},
+    {"method": "library_management.api.book.get_book"},
+    {"method": "library_management.api.book.update_book"},
+    {"method": "library_management.api.book.delete_book"},
+    {"method": "library_management.api.member.create_member"},
+    {"method": "library_management.api.member.get_member"},
+    {"method": "library_management.api.member.update_member"},
+    {"method": "library_management.api.member.delete_member"}
+]
+
+
+after_login = "library_management.utils.redirect_after_login"
+
+
+role_home_page = {
+    "Member": "available-books",
+}
+
+
+scheduler_events = {
+    "daily": [
+        "library_management.api.overdue_notifications.send_overdue_reminders"
+    ]
+}
+
+
+doc_events = {
+    "User": {
+        "after_insert": "library_management.api.user.create_member_on_user_creation"
+    }
+}
+
+
+
 # Apps
 # ------------------
 
