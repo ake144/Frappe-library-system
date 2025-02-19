@@ -1,0 +1,4 @@
+frappe-bench
+gunicorn
+redis
+psycopg2-binary
