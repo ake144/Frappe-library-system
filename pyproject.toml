@@ -3,6 +3,8 @@ name = "library_management"
 authors = [
     { name = "ake", email = "tamiratake@gmail.com"}
 ]
+version = "0.1.0"
+
 description = "Library management app"
 requires-python = ">=3.10"
 readme = "README.md"
