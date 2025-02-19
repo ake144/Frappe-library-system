@@ -56,13 +56,3 @@ typing-modules = ["frappe.types.DF"]
 quote-style = "double"
 indent-style = "tab"
 docstring-code-format = true
-
-
-services:
-  - name: frappe-app
-    type: web
-    runtime: python
-    envVars:
-      - key: PYTHON_VERSION
-        value: 3.11
-
